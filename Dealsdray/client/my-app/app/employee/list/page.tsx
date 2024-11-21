@@ -2,8 +2,10 @@ import EmployeeList from "./EmployeeList";
 
 export default function EmployeeListPage() {
   return (
-    <div className="flex flex-col p-6">
-      <div className="bg-yellow-500 text-black p-2 font-bold">Employee List</div>
+    <div className="p-6">
+      <header className="bg-teal-500 text-white text-lg font-bold p-3 rounded-t-lg shadow-md">
+        Employee List
+      </header>
       <EmployeeList />
     </div>
   );

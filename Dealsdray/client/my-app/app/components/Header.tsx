@@ -3,7 +3,7 @@ import DarkModeToggle from "./DarkModeToggle";
 export default function Header() {
   return (
     <header className="bg-gray-800 p-4 shadow-md flex justify-between items-center">
-      <div className="flex items-center space-x-4 overflow-hidden">
+      <div className="flex items-center space-x-4">
         <h1 className="text-yellow-400 font-bold text-lg truncate">
           Logo | Admin Panel
         </h1>

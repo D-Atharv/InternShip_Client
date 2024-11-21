@@ -12,7 +12,7 @@ export default function Sidebar() {
           onClick={() => setIsMenuOpen(true)}
           className="fixed top-4 left-4 z-50 lg:hidden text-white p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition focus:outline-none"
         >
-          <span className="text-lg">☰</span>
+          ☰
         </button>
       )}
 
@@ -85,5 +85,3 @@ export default function Sidebar() {
     </>
   );
 }
-
-
