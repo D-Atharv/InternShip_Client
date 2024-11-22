@@ -1,27 +1,22 @@
 'use client';
+
 import { useState } from "react";
 import EmployeeHeader from "./components/EmployeeHeader";
 import SearchBar from "./components/SearchBar";
 import EmployeeTable from "./components/EmployeeTable";
+import EditEmployeeModal from "./components/modal/EditEmployeeModal";
+import DeleteEmployeeModal from "./components/modal/DeleteEmployeeModal";
+import {Employee} from '../../../types/Employee';
 
-interface Employee {
-  id: number;
-  name: string;
-  email: string;
-  mobile: string;
-  role: string;
-  gender: string;
-  courses: string;
-  image: string;
-  createDate: string;
-}
 
 export default function EmployeeListPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortKey, setSortKey] = useState<string>("id");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [editModal, setEditModal] = useState<Employee | null>(null);
+  const [deleteModal, setDeleteModal] = useState<Employee | null>(null);
 
-  const employees: Employee[] = [
+  const [employees, setEmployees] = useState<Employee[]>([
     {
       id: 1,
       name: "Hukum",
@@ -55,7 +50,7 @@ export default function EmployeeListPage() {
       image: "/images/placeholder.png",
       createDate: "2023-11-03",
     },
-  ];
+  ]);
 
   const filteredEmployees = employees
     .filter(
@@ -79,11 +74,24 @@ export default function EmployeeListPage() {
   };
 
   const handleEdit = (id: number) => {
-    console.log(`Edit employee with ID: ${id}`);
+    const employee = employees.find((emp) => emp.id === id);
+    if (employee) setEditModal(employee);
   };
 
   const handleDelete = (id: number) => {
-    console.log(`Delete employee with ID: ${id}`);
+    const employee = employees.find((emp) => emp.id === id);
+    if (employee) setDeleteModal(employee);
+  };
+
+  const handleSaveEdit = (updatedEmployee: Employee) => {
+    setEmployees((prev) =>
+      prev.map((emp) => (emp.id === updatedEmployee.id ? updatedEmployee : emp))
+    );
+  };
+
+  const handleConfirmDelete = (id: number) => {
+    setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+    setDeleteModal(null);
   };
 
   return (
@@ -103,6 +111,20 @@ export default function EmployeeListPage() {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+      {editModal && (
+        <EditEmployeeModal
+          employee={editModal}
+          onClose={() => setEditModal(null)}
+          onSave={handleSaveEdit}
+        />
+      )}
+      {deleteModal && (
+        <DeleteEmployeeModal
+          employeeName={deleteModal.name}
+          onClose={() => setDeleteModal(null)}
+          onConfirm={() => handleConfirmDelete(deleteModal.id)}
+        />
+      )}
     </div>
   );
 }

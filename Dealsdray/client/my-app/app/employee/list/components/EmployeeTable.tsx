@@ -1,16 +1,5 @@
 import Image from "next/image";
-interface Employee {
-  id: number;
-  name: string;
-  email: string;
-  mobile: string;
-  role: string;
-  gender: string;
-  courses: string;
-  image: string;
-  createDate: string;
-}
-
+import {Employee} from '../../../../types/Employee';
 const EmployeeTable = ({
   employees,
   onSort,
