@@ -1,4 +1,3 @@
-// CreateEmployeeForm.tsx
 'use client';
 import { useState } from "react";
 import FormInput from "./components/FormInput";
@@ -54,9 +53,9 @@ export default function CreateEmployeeForm() {
     return (
         <form
             onSubmit={handleSubmit}
-            className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-lg xl:w-2/5 shadow-2xl text-white space-y-6 max-h-screen overflow-y-auto"
+            className="bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-lg w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:w-2/5 shadow-2xl text-white space-y-6 max-h-screen overflow-y-auto mx-auto"
         >
-            <h2 className="text-2xl font-extrabold text-center text-teal-400">
+            <h2 className="text-xl md:text-2xl font-extrabold text-center text-teal-400">
                 Fill in Employee Details
             </h2>
 

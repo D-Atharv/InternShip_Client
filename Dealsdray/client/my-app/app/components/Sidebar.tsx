@@ -2,19 +2,27 @@
 
 import { useSidebar } from "../../Context/SideBarContext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Loader from "../components/ui/Loader";
 
 export default function Sidebar() {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleNavigation = (href: string) => {
-    router.push(href);
-    toggleSidebar(); // Close sidebar after navigation
+    setIsLoading(true); 
+    toggleSidebar(); 
+    setTimeout(() => {
+      router.push(href);
+      setIsLoading(false); 
+    }, 500); 
   };
 
   return (
     <>
-      {/* Sidebar */}
+      {isLoading && <Loader />}
+
       <aside
         className={`lg:w-64 bg-white/10 backdrop-blur-md border border-white/20 h-full p-6 lg:static fixed top-0 left-0 z-40 transition-transform duration-300 ease-in-out rounded-lg ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -75,7 +83,6 @@ export default function Sidebar() {
         </div>
       </aside>
 
-      {/* Sidebar Overlay for Small Screens */}
       {isSidebarOpen && (
         <div
           onClick={toggleSidebar}

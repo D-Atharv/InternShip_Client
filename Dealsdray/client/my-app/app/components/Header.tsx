@@ -7,7 +7,6 @@ export default function Header() {
 
   return (
     <header className="bg-white/10 backdrop-blur-lg p-4 shadow-lg rounded-lg flex justify-between items-center">
-      {/* Left Section */}
       <div className="flex items-center space-x-4">
         <button
           onClick={toggleSidebar}
@@ -20,7 +19,6 @@ export default function Header() {
         </h1>
       </div>
 
-      {/* Right Section */}
       <div className="flex items-center space-x-4">
         <span className="hidden sm:block text-gray-200 text-sm font-medium truncate">
           Welcome,{" "}
