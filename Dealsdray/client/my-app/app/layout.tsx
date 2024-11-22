@@ -1,3 +1,4 @@
+import { SidebarProvider } from '@/Context/SideBarContext';
 import './globals.css';
 
 export const metadata = {
@@ -9,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="h-screen bg-[#0A0A0A] text-white">
-        {children}
+      <SidebarProvider>{children}</SidebarProvider>
       </body>
     </html>
   );

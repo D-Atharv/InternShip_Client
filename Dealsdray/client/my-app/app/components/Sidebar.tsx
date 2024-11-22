@@ -1,45 +1,28 @@
 "use client";
-import { useState, startTransition } from "react";
+
+import { useSidebar } from "../../Context/SideBarContext";
 import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   const router = useRouter();
 
   const handleNavigation = (href: string) => {
-    setIsLoading(true); 
-    startTransition(() => {
-      router.push(href);
-      setIsLoading(false); 
-    });
+    router.push(href);
+    toggleSidebar(); // Close sidebar after navigation
   };
 
   return (
     <>
-      {isLoading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
-          <div className="w-16 h-16 border-4 border-t-transparent border-yellow-400 rounded-full animate-spin"></div>
-        </div>
-      )}
-
-      {!isMenuOpen && (
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className="fixed top-4 left-4 z-50 lg:hidden text-white p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition focus:outline-none"
-        >
-          ☰
-        </button>
-      )}
-
+      {/* Sidebar */}
       <aside
         className={`lg:w-64 bg-white/10 backdrop-blur-md border border-white/20 h-full p-6 lg:static fixed top-0 left-0 z-40 transition-transform duration-300 ease-in-out rounded-lg ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           <button
-            onClick={() => setIsMenuOpen(false)}
+            onClick={toggleSidebar}
             className="lg:hidden self-end text-gray-300 bg-white/10 hover:bg-white/20 backdrop-blur-md p-2 rounded-full border border-white/20 transition"
           >
             ✖️
@@ -92,9 +75,10 @@ export default function Sidebar() {
         </div>
       </aside>
 
-      {isMenuOpen && (
+      {/* Sidebar Overlay for Small Screens */}
+      {isSidebarOpen && (
         <div
-          onClick={() => setIsMenuOpen(false)}
+          onClick={toggleSidebar}
           className="fixed inset-0 bg-black bg-opacity-90 z-30 lg:hidden"
         ></div>
       )}
