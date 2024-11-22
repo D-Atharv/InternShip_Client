@@ -1,20 +1,10 @@
 import React from "react";
+import { Employee } from "../../../../../types/Employee";
 import Modal from "./components/editEmployeeModal/Modal";
 import TextInput from "./components/editEmployeeModal/TextInput";
 import SelectInput from "./components/editEmployeeModal/SelectInput";
 import RadioInput from "./components/editEmployeeModal/RadioInput";
 import CheckboxGroup from "./components/editEmployeeModal/CheckboxGroup";
-
-interface Employee {
-  name: string;
-  email: string;
-  mobile: string;
-  role: string;
-  gender: string;
-  courses: string[];
-  image: string;
-  createDate: string;
-}
 
 interface EditEmployeeModalProps {
   employee: Employee;

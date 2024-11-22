@@ -1,4 +1,3 @@
-import DarkModeToggle from "./DarkModeToggle";
 
 export default function Header() {
   return (
@@ -13,7 +12,6 @@ export default function Header() {
         <span className="hidden sm:block text-gray-300 text-sm font-medium truncate">
           Welcome, <span className="text-yellow-400">Hukum Gupta</span>
         </span>
-        <DarkModeToggle />
       </div>
     </header>
   );

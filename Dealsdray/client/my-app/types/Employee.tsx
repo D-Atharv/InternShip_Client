@@ -5,7 +5,7 @@ export interface Employee {
     mobile: string;
     role: string;
     gender: string;
-    courses: string;
+    courses: string[];
     image: string;
     createDate: string;
   }

@@ -113,7 +113,7 @@ export default function CreateEmployeeForm() {
         accept="image/png, image/jpeg"
       />
 
-\      <button
+     <button
         type="submit"
         className="w-full bg-gradient-to-r from-teal-500 to-green-500 hover:from-teal-400 hover:to-green-400 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
       >
