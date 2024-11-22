@@ -24,10 +24,12 @@ interface TextInputProps {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:ring focus:ring-teal-500"
+        className="w-full px-3 py-2 rounded-md bg-black/30 text-white border border-gray-500 placeholder-gray-400 focus:ring focus:ring-yellow-400 focus:outline-none transition"
       />
     </div>
   );
   
   export default TextInput;
+
+  
   
