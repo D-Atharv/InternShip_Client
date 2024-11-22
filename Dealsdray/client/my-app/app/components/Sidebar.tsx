@@ -95,7 +95,7 @@ export default function Sidebar() {
       {isMenuOpen && (
         <div
           onClick={() => setIsMenuOpen(false)}
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-90 z-30 lg:hidden"
         ></div>
       )}
     </>

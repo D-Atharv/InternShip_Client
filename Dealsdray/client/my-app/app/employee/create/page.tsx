@@ -1,12 +1,10 @@
+// CreateEmployeePage.tsx
 import CreateEmployeeForm from "./CreateEmployeeForm";
 
 export default function CreateEmployeePage() {
   return (
-    <div className="flex flex-col p-6 bg-gray-900 min-h-screen">
-      <header className="bg-yellow-500 text-black p-3 font-bold rounded-t-lg shadow-md">
-        Create Employee
-      </header>
-      <main className="mt-6">
+    <div className="flex flex-col p-6 pt-2 bg-gradient-to-br bg-[#0A0A0A] to-black h-full max-h-screen ">
+      <main className="mt-6 flex justify-center">
         <CreateEmployeeForm />
       </main>
     </div>

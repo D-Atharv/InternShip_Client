@@ -1,7 +1,7 @@
 export default function WelcomeSection() {
   return (
-    <div className="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 p-6 rounded-lg shadow-lg text-center">
-      <h1 className="text-4xl font-extrabold text-white animate-pulse">
+    <div className="p-6 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg border border-white/20">
+      <h1 className="text-3xl font-bold text-white">
         Welcome to the Admin Panel
       </h1>
       <p className="mt-4 text-gray-300 text-lg">

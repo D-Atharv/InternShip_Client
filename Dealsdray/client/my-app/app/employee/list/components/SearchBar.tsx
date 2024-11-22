@@ -8,7 +8,7 @@ interface SearchBarProps {
       <input
         type="text"
         placeholder="Search by name or email"
-        className="w-full sm:w-1/2 px-4 py-2 rounded-md border border-gray-500 focus:ring-2 focus:ring-teal-500 transition bg-gray-800 text-white"
+        className="w-full sm:w-1/2 px-4 py-2 rounded-md border border-white/20 bg-white/10 backdrop-blur-md text-white placeholder-gray-400 focus:ring-2 focus:ring-teal-500 transition"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />

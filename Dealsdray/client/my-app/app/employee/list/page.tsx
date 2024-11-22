@@ -50,6 +50,7 @@ export default function EmployeeListPage() {
       image: "/images/placeholder.png",
       createDate: "2023-11-03",
     },
+    
   ]);
 
   const filteredEmployees = employees
@@ -95,10 +96,7 @@ export default function EmployeeListPage() {
   };
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen text-white">
-      <header className="bg-yellow-500 text-black text-lg font-bold p-3 mb-2 rounded-t-lg shadow-md">
-        Employee List
-      </header>
+    <div className="p-6 bg-[#0A0A0A]/100 backdrop-blur-lg h-full text-white">
       <EmployeeHeader totalEmployees={employees.length} />
       <div className="mb-4">
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
