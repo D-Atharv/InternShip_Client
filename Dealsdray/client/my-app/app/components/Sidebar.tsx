@@ -16,7 +16,7 @@ export default function Sidebar() {
     setTimeout(() => {
       router.push(href);
       setIsLoading(false);
-    }, 500);
+    }, 2000);
   };
 
   const handleLogout = () => {

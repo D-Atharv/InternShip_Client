@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmployeeHeader from "./components/EmployeeHeader";
 import SearchBar from "./components/SearchBar";
 import EmployeeTable from "./components/EmployeeTable";
 import EditEmployeeModal from "./components/modal/EditEmployeeModal";
 import DeleteEmployeeModal from "./components/modal/DeleteEmployeeModal";
-import {Employee} from '../../../types/Employee';
-
+import { Employee } from "../../../types/Employee";
+import { fetchEmployees } from "../../../services/employeeService";
 
 export default function EmployeeListPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -15,43 +15,26 @@ export default function EmployeeListPage() {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [editModal, setEditModal] = useState<Employee | null>(null);
   const [deleteModal, setDeleteModal] = useState<Employee | null>(null);
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [employees, setEmployees] = useState<Employee[]>([
-    {
-      id: 1,
-      name: "Hukum",
-      email: "hukum@cstech.in",
-      mobile: "954010044",
-      role: "HR",
-      gender: "Male",
-      courses: ["MCA"],
-      image: "/images/placeholder.png",
-      createDate: "2023-11-01",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      mobile: "1234567890",
-      role: "Manager",
-      gender: "Male",
-      courses: ["BCA"],
-      image: "/images/placeholder.png",
-      createDate: "2023-11-02",
-    },
-    {
-      id: 3,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      mobile: "9876543210",
-      role: "Sales",
-      gender: "Female",
-      courses: ["BSC"],
-      image: "/images/placeholder.png",
-      createDate: "2023-11-03",
-    },
-    
-  ]);
+  // Fetch employees on mount
+  useEffect(() => {
+    const loadEmployees = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchEmployees();
+        setEmployees(data);
+      } catch (err) {
+        if (err instanceof Error) setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEmployees();
+  }, []);
 
   const filteredEmployees = employees
     .filter(
@@ -101,14 +84,20 @@ export default function EmployeeListPage() {
       <div className="mb-4">
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
-      <EmployeeTable
-        employees={filteredEmployees}
-        onSort={handleSort}
-        sortKey={sortKey}
-        sortDirection={sortDirection}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      {loading ? (
+        <p className="text-center text-gray-400">Loading employees...</p>
+      ) : error ? (
+        <p className="text-center text-red-400">{error}</p>
+      ) : (
+        <EmployeeTable
+          employees={filteredEmployees}
+          onSort={handleSort}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      )}
       {editModal && (
         <EditEmployeeModal
           employee={editModal}
