@@ -47,7 +47,7 @@ export default function CreateEmployeeForm() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formData); // Simulate form submission
+        console.log(formData); 
     };
 
     return (
