@@ -63,20 +63,24 @@ const EmployeeTable = ({
         <tbody>
           {employees.map((employee, index) => (
             <tr
-              key={employee.id}
+              key={`${employee.id}-${index}`} 
               className={`hover:bg-white/5 ${
                 index % 2 === 0 ? "bg-white/10" : "bg-white/20"
               } transition duration-200`}
             >
               <td className="p-4">{employee.id}</td>
               <td className="p-4">
-                <Image
-                  src={employee.image}
-                  alt={employee.name}
-                  className="w-10 h-10 rounded-full border border-gray-500"
-                  width={40}
-                  height={40}
-                />
+                {employee.image ? (
+                  <Image
+                    src={employee.image || "/images/placeholder.png"}
+                    alt={employee.name || "No Name"}
+                    className="w-10 h-10 rounded-full border border-gray-500"
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <span>No Image</span>
+                )}
               </td>
               <td className="p-4">{employee.name}</td>
               <td className="p-4">{employee.email}</td>
@@ -105,7 +109,11 @@ const EmployeeTable = ({
                   {employee.gender}
                 </span>
               </td>
-              <td className="p-4">{employee.courses.join(", ")}</td>
+              <td className="p-4">
+                {Array.isArray(employee.courses)
+                  ? employee.courses.join(", ")
+                  : "N/A"}
+              </td>
               <td className="p-4">{employee.createDate}</td>
               <td className="p-4 flex justify-center gap-2">
                 <button

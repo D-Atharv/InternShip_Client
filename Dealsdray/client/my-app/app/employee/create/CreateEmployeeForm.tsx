@@ -5,6 +5,7 @@ import FormSelect from "./components/FormSelect";
 import FormRadioGroup from "./components/FormRadioGroup";
 import FormCheckboxGroup from "./components/FormCheckBoxGroup";
 import FormFileInput from "./components/FormFileInput";
+import { createEmployee } from "../../../services/employeeService";
 
 interface EmployeeFormData {
     name: string;
@@ -27,6 +28,10 @@ export default function CreateEmployeeForm() {
         image: null,
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -45,10 +50,47 @@ export default function CreateEmployeeForm() {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formData); 
+        setError(null);
+        setSuccessMessage(null);
+        setIsSubmitting(true);
+
+        const formDataToSend = new FormData();
+        formDataToSend.append("name", formData.name);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("mobile", formData.mobile);
+        formDataToSend.append("designation", formData.designation);
+        formDataToSend.append("gender", formData.gender);
+        formDataToSend.append("courses", JSON.stringify(formData.courses));
+        if (formData.image) {
+            formDataToSend.append("image", formData.image);
+        }
+
+        try {
+            await createEmployee(formDataToSend);
+
+            setSuccessMessage("Employee created successfully!");
+            setFormData({
+                name: "",
+                email: "",
+                mobile: "",
+                designation: "",
+                gender: "",
+                courses: [],
+                image: null,
+            });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message || "An unexpected error occurred.");
+            } else {
+                setError("An unexpected error occurred.");
+            }
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
 
     return (
         <form
@@ -58,6 +100,9 @@ export default function CreateEmployeeForm() {
             <h2 className="text-xl md:text-2xl font-extrabold text-center text-yellow-500 ">
                 Fill in Employee Details
             </h2>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
 
             <FormInput
                 label="Name"
@@ -114,9 +159,13 @@ export default function CreateEmployeeForm() {
 
             <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                disabled={isSubmitting}
+                className={`w-full ${isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:shadow-xl"
+                    } text-black font-bold py-3 rounded-lg shadow-lg transition-all duration-300`}
             >
-                Submit
+                {isSubmitting ? "Submitting..." : "Submit"}
             </button>
         </form>
     );

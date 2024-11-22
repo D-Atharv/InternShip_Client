@@ -22,23 +22,22 @@ export const fetchEmployees = async (): Promise<Employee[]> => {
   return data.employees;
 };
 
-export const createEmployee = async (newEmployee: Omit<Employee, "id">): Promise<Employee> => {
-  const token = localStorage.getItem("authToken"); 
-
-  const response = await fetch(`${BASE_URL}/api/employees`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newEmployee),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "Failed to create employee");
-  }
-
-  const data = await response.json();
-  return data.employee;
-};
+export const createEmployee = async (employeeData: FormData): Promise<Employee> => {
+    const token = localStorage.getItem("authToken"); 
+  
+    const response = await fetch(`${BASE_URL}/api/employees`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: employeeData, 
+    });
+  
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to create employee");
+    }
+  
+    const data = await response.json();
+    return data.employee || [];
+  };
