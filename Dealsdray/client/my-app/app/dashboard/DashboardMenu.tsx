@@ -11,9 +11,9 @@ export default function DashboardMenu() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       {menuItems.map((item, index) => (
         <Link key={index} href={item.href} className="block">
-          <div className="p-6 bg-gray-800 hover:bg-gray-700 rounded-lg shadow-lg transition transform hover:-translate-y-1">
-            <h2 className="text-xl font-semibold text-yellow-400">{item.label}</h2>
-            <p className="mt-2 text-gray-300 text-sm">{item.description}</p>
+          <div className="p-6 bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-lg rounded-lg shadow-lg transition transform hover:scale-105 hover:shadow-2xl">
+            <h2 className="text-2xl font-bold text-white">{item.label}</h2>
+            <p className="mt-2 text-gray-300">{item.description}</p>
           </div>
         </Link>
       ))}
