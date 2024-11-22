@@ -2,7 +2,7 @@ import Card from './Card';
 
 export default function ContentGrid() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
       <Card
         title="Employee List"
         description="View and manage the list of all employees in the system."

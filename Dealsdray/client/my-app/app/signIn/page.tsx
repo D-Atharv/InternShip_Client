@@ -1,9 +1,9 @@
-import LoginForm from "./LoginForm";
+import SignInForm from "./SignInForm";
 
-export default function LoginPage() {
+export default function SignInPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black px-2">
-      <LoginForm />
+      <SignInForm />
     </div>
   );
 }

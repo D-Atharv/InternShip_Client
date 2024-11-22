@@ -12,9 +12,9 @@ interface FormInputProps {
       <input
         type={type}
         name={name}
-        value={value}
+        value={value || ""}
         onChange={onChange}
-        className="w-full mt-1 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+        className="w-full mt-1 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
       />
     </label>
   );

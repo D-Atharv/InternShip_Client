@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function LogInForm() {
+export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +24,7 @@ export default function LogInForm() {
   return (
     <div className="bg-black p-8 rounded-lg shadow-lg max-w-sm mx-auto bg-white/10 backdrop-blur-md border border-white/20">
       <h2 className="text-yellow-400 text-3xl font-extrabold mb-6 text-center">
-        Welcome Back!
+        Sign In
       </h2>
       <form onSubmit={handleSubmit}>
         {error && (
@@ -50,26 +50,12 @@ export default function LogInForm() {
             className="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-500 placeholder-gray-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"
           />
         </label>
-        <div className="flex justify-between items-center mb-6">
-          <label className="flex items-center text-sm text-gray-300">
-            <input
-              type="checkbox"
-              className="h-4 w-4 text-yellow-400 bg-gray-700 border-gray-500 rounded focus:ring-2 focus:ring-yellow-400"
-            />
-            <span className="ml-2">Remember Me</span>
-          </label>
-          <Link
-            href="#"
-            className="text-sm text-yellow-400 hover:text-yellow-300 transition"
-          >
-            Forgot Password?
-          </Link>
-        </div>
+       
         <button
           type="submit"
           className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
         >
-          Login
+          SignIn
         </button>
 
         <div className="flex items-center my-6">
@@ -79,12 +65,12 @@ export default function LogInForm() {
         </div>
 
         <p className="text-center text-sm text-gray-300 mt-6">
-          Don&qpost have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/signIn"
+            href="/login"
             className="text-yellow-400 hover:text-yellow-300 font-medium transition"
           >
-            Create an account
+            Login Here
           </Link>
         </p>
       </form>

@@ -55,7 +55,7 @@ export default function CreateEmployeeForm() {
             onSubmit={handleSubmit}
             className="bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-lg w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:w-2/5 shadow-2xl text-white space-y-6 max-h-screen overflow-y-auto mx-auto"
         >
-            <h2 className="text-xl md:text-2xl font-extrabold text-center text-teal-400">
+            <h2 className="text-xl md:text-2xl font-extrabold text-center text-yellow-500 ">
                 Fill in Employee Details
             </h2>
 
@@ -114,7 +114,7 @@ export default function CreateEmployeeForm() {
 
             <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-teal-500/90 to-green-500/90 hover:from-teal-400 hover:to-green-400 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
                 Submit
             </button>

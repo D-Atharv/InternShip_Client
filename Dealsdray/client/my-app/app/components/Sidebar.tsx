@@ -11,22 +11,20 @@ export default function Sidebar() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleNavigation = (href: string) => {
-    setIsLoading(true); 
-    toggleSidebar(); 
+    setIsLoading(true);
+    toggleSidebar();
     setTimeout(() => {
       router.push(href);
-      setIsLoading(false); 
-    }, 500); 
+      setIsLoading(false);
+    }, 500);
   };
 
   return (
     <>
-      {isLoading && <Loader />}
-
+      {typeof window !== "undefined" && isLoading && <Loader />}
       <aside
-        className={`lg:w-64 bg-white/10 backdrop-blur-md border border-white/20 h-full p-6 lg:static fixed top-0 left-0 z-40 transition-transform duration-300 ease-in-out rounded-lg ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0`}
+        className={`lg:w-64 bg-white/10 backdrop-blur-md border border-white/20 h-full p-6 lg:static fixed top-0 left-0 z-40 transition-transform duration-300 ease-in-out rounded-lg ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           <button
