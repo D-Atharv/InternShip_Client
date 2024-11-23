@@ -57,3 +57,21 @@ export const deleteEmployeeApi = async (id: string): Promise<void> => {
     throw new Error(`Failed to delete employee with _id ${id}`);
   }
 };
+
+export const updateEmployeeApi = async (id: string, updatedData: Partial<Employee>): Promise<Employee> => {
+  const token = localStorage.getItem("authToken");
+  const response = await fetch(`${BASE_URL}/api/employees/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to update employee with ID ${id}`);
+  }
+
+  return response.json();
+};
