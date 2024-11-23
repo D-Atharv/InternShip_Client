@@ -13,8 +13,8 @@ const EmployeeTable = ({
   onSort: (key: string) => void;
   sortKey: string;
   sortDirection: string;
-  onEdit: (id: number) => void;
-  onDelete: (id: number) => void;
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
 }) => {
   const getSortIcon = (key: string) => {
     if (sortKey === key) {
@@ -63,12 +63,12 @@ const EmployeeTable = ({
         <tbody>
           {employees.map((employee, index) => (
             <tr
-              key={`${employee.id}-${index}`} 
+              key={`${employee._id}-${index}`} 
               className={`hover:bg-white/5 ${
                 index % 2 === 0 ? "bg-white/10" : "bg-white/20"
               } transition duration-200`}
             >
-              <td className="p-4">{employee.id}</td>
+              <td className="p-4">{employee._id}</td>
               <td className="p-4">
                 {employee.image ? (
                   <Image
@@ -117,13 +117,13 @@ const EmployeeTable = ({
               <td className="p-4">{employee.createDate}</td>
               <td className="p-4 flex justify-center gap-2">
                 <button
-                  onClick={() => onEdit(employee.id)}
+                  onClick={() => onEdit(employee._id)}
                   className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg shadow-sm text-xs transition"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => onDelete(employee.id)}
+                  onClick={() => onDelete(employee._id)}
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg shadow-sm text-xs transition"
                 >
                   Delete

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from "react";
 import EmployeeHeader from "./components/EmployeeHeader";
@@ -7,11 +7,11 @@ import EmployeeTable from "./components/EmployeeTable";
 import EditEmployeeModal from "./components/modal/EditEmployeeModal";
 import DeleteEmployeeModal from "./components/modal/DeleteEmployeeModal";
 import { Employee } from "../../../types/Employee";
-import { fetchEmployees } from "../../../services/employeeService";
+import { deleteEmployeeApi, fetchEmployees } from "../../../services/employeeService";
 
 export default function EmployeeListPage() {
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [sortKey, setSortKey] = useState<string>("id");
+    const [sortKey, setSortKey] = useState<string>("_id");
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
     const [editModal, setEditModal] = useState<Employee | null>(null);
     const [deleteModal, setDeleteModal] = useState<Employee | null>(null);
@@ -35,7 +35,7 @@ export default function EmployeeListPage() {
         loadEmployees();
     }, []);
 
-    const filteredEmployees = (employees || [])
+    const filteredEmployees = employees
         .filter(
             (employee) =>
                 employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -49,37 +49,47 @@ export default function EmployeeListPage() {
             return 0;
         });
 
-
     const handleSort = (key: string) => {
-        const newDirection =
-            sortKey === key && sortDirection === "asc" ? "desc" : "asc";
+        const newDirection = sortKey === key && sortDirection === "asc" ? "desc" : "asc";
         setSortKey(key);
         setSortDirection(newDirection);
     };
 
-    const handleEdit = (id: number) => {
-        const employee = employees.find((emp) => emp.id === id);
+    const handleEdit = (_id: string) => {
+        const employee = employees.find((emp) => emp._id === _id);
         if (employee) setEditModal(employee);
     };
 
-    const handleDelete = (id: number) => {
-        const employee = employees.find((emp) => emp.id === id);
-        if (employee) setDeleteModal(employee);
+    const handleDelete = (_id: string) => {
+        const employee = employees.find((emp) => emp._id === _id);
+        if (employee) {
+            setDeleteModal(employee);
+        } else {
+            throw new Error("Employee not found");
+        }
     };
 
     const handleSaveEdit = (updatedEmployee: Employee) => {
         setEmployees((prev) =>
-            prev.map((emp) => (emp.id === updatedEmployee.id ? updatedEmployee : emp))
+            prev.map((emp) => (emp._id === updatedEmployee._id ? updatedEmployee : emp))
         );
     };
 
-    const handleConfirmDelete = (id: number) => {
-        setEmployees((prev) => prev.filter((emp) => emp.id !== id));
-        setDeleteModal(null);
+    const handleConfirmDelete = async (_id: string | undefined) => {
+        if (!_id) {
+            return;
+        }
+        try {
+            await deleteEmployeeApi(_id);
+            setEmployees((prev) => prev.filter((emp) => emp._id !== _id));
+            setDeleteModal(null);
+        } catch (error) {
+            throw error;
+        }
     };
 
     return (
-        <div className="p-6 bg-[#0A0A0A]/100 backdrop-blur-lg h-full text-white">
+        <div className="p-6 bg-[#0A0A0A] backdrop-blur-lg h-full text-white">
             <EmployeeHeader totalEmployees={employees.length} />
             <div className="mb-4">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -94,8 +104,8 @@ export default function EmployeeListPage() {
                     onSort={handleSort}
                     sortKey={sortKey}
                     sortDirection={sortDirection}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
+                    onEdit={(id) => handleEdit(id)}
+                    onDelete={(id) => handleDelete(id)}
                 />
             )}
             {editModal && (
@@ -109,7 +119,7 @@ export default function EmployeeListPage() {
                 <DeleteEmployeeModal
                     employeeName={deleteModal.name}
                     onClose={() => setDeleteModal(null)}
-                    onConfirm={() => handleConfirmDelete(deleteModal.id)}
+                    onConfirm={() => handleConfirmDelete(deleteModal._id)}
                 />
             )}
         </div>

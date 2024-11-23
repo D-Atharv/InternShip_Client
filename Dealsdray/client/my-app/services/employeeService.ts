@@ -3,7 +3,7 @@ import { Employee } from "../types/Employee";
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  const token = localStorage.getItem("authToken"); 
+  const token = localStorage.getItem("authToken");
 
   const response = await fetch(`${BASE_URL}/api/employees`, {
     method: "GET",
@@ -23,21 +23,37 @@ export const fetchEmployees = async (): Promise<Employee[]> => {
 };
 
 export const createEmployee = async (employeeData: FormData): Promise<Employee> => {
-    const token = localStorage.getItem("authToken"); 
-  
-    const response = await fetch(`${BASE_URL}/api/employees`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: employeeData, 
-    });
-  
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Failed to create employee");
-    }
-  
-    const data = await response.json();
-    return data.employee || [];
-  };
+  const token = localStorage.getItem("authToken");
+
+  const response = await fetch(`${BASE_URL}/api/employees`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: employeeData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to create employee");
+  }
+
+  const data = await response.json();
+  return data.employee || [];
+};
+
+export const deleteEmployeeApi = async (id: string): Promise<void> => {
+  const token = localStorage.getItem("authToken");
+
+  const response = await fetch(`${BASE_URL}/api/employees/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete employee with _id ${id}`);
+  }
+};
