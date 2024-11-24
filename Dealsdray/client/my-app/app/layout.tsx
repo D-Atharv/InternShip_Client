@@ -1,5 +1,6 @@
 import { SidebarProvider } from '@/Context/SideBarContext';
 import './globals.css';
+import { AuthUserProvider } from '@/Context/userContext';
 
 export const metadata = {
   title: 'Admin Panel',
@@ -8,12 +9,14 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
-      <html lang="en">
-        <body className="h-screen bg-[#0A0A0A] text-white">
-          {children}
-        </body>
-      </html>
-    </SidebarProvider>
+    <AuthUserProvider>
+      <SidebarProvider>
+        <html lang="en">
+          <body className="h-screen bg-[#0A0A0A] text-white">
+            {children}
+          </body>
+        </html>
+      </SidebarProvider>
+    </AuthUserProvider>
   );
 }
