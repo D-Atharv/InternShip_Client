@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import EmployeeHeader from "./components/EmployeeHeader";
 import SearchBar from "./components/SearchBar";
 import EmployeeTable from "./components/EmployeeTable";
@@ -10,31 +11,45 @@ import { Employee } from "../../../types/Employee";
 import { deleteEmployeeApi, fetchEmployees } from "../../../services/employeeService";
 
 export default function EmployeeListPage() {
+    const router = useRouter();
+    const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+    const [employees, setEmployees] = useState<Employee[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [sortKey, setSortKey] = useState<string>("_id");
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
     const [editModal, setEditModal] = useState<Employee | null>(null);
     const [deleteModal, setDeleteModal] = useState<Employee | null>(null);
-    const [employees, setEmployees] = useState<Employee[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const loadEmployees = async () => {
-            try {
-                setLoading(true);
-                const data = await fetchEmployees();
-                console.log("Loaded Employees:", data); 
-                setEmployees(data);
-            } catch (err) {
-                if (err instanceof Error) setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+        const token = localStorage.getItem("authToken");
 
-        loadEmployees();
-    }, []);
+        if (!token) {
+            router.replace("/login");
+        } else {
+            setIsLoadingAuth(false);
+        }
+    }, [router]);
+
+    useEffect(() => {
+        if (!isLoadingAuth) {
+            const loadEmployees = async () => {
+                try {
+                    setLoading(true);
+                    const data = await fetchEmployees();
+                    console.log("Loaded Employees:", data);
+                    setEmployees(data);
+                } catch (err) {
+                    if (err instanceof Error) setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            loadEmployees();
+        }
+    }, [isLoadingAuth]);
 
     const filteredEmployees = employees
         .filter(
@@ -88,6 +103,10 @@ export default function EmployeeListPage() {
             throw error;
         }
     };
+
+    if (isLoadingAuth) {
+        return null;
+    }
 
     return (
         <div className="p-6 bg-[#0A0A0A] backdrop-blur-lg h-full text-white">
