@@ -73,7 +73,7 @@ const EmployeeTable = ({
                 {employee.image ? (
                   <Image
                     src={employee.image || "/images/placeholder.png"}
-                    alt={employee.name || "No Name"}
+                    alt={`${employee.name}'s profile`}
                     className="w-10 h-10 rounded-full border border-gray-500"
                     width={40}
                     height={40}
