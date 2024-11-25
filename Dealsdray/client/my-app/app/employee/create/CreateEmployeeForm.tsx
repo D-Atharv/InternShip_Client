@@ -11,7 +11,7 @@ interface EmployeeFormData {
     name: string;
     email: string;
     mobile: string;
-    designation: string;
+    role: string;
     gender: string;
     courses: string[];
     image: File | null;
@@ -22,7 +22,7 @@ export default function CreateEmployeeForm() {
         name: "",
         email: "",
         mobile: "",
-        designation: "",
+        role: "",
         gender: "",
         courses: [],
         image: null,
@@ -60,7 +60,7 @@ export default function CreateEmployeeForm() {
         formDataToSend.append("name", formData.name);
         formDataToSend.append("email", formData.email);
         formDataToSend.append("mobile", formData.mobile);
-        formDataToSend.append("designation", formData.designation);
+        formDataToSend.append("role", formData.role);
         formDataToSend.append("gender", formData.gender);
         formDataToSend.append("courses", JSON.stringify(formData.courses));
         if (formData.image) {
@@ -75,7 +75,7 @@ export default function CreateEmployeeForm() {
                 name: "",
                 email: "",
                 mobile: "",
-                designation: "",
+                role: "",
                 gender: "",
                 courses: [],
                 image: null,
@@ -132,9 +132,9 @@ export default function CreateEmployeeForm() {
             />
 
             <FormSelect
-                label="Designation"
-                name="designation"
-                value={formData.designation}
+                label="Role"
+                name="role"
+                value={formData.role}
                 onChange={handleInputChange}
                 options={["HR", "Manager", "Sales"]}
             />
