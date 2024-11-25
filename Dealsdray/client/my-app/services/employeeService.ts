@@ -19,6 +19,7 @@ export const fetchEmployees = async (): Promise<Employee[]> => {
   }
 
   const data = await response.json();
+  console.log("API Response:", data);
   return data.employees;
 };
 

@@ -24,6 +24,7 @@ export default function EmployeeListPage() {
             try {
                 setLoading(true);
                 const data = await fetchEmployees();
+                console.log("Loaded Employees:", data); 
                 setEmployees(data);
             } catch (err) {
                 if (err instanceof Error) setError(err.message);

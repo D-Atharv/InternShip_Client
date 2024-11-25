@@ -63,10 +63,9 @@ const EmployeeTable = ({
         <tbody>
           {employees.map((employee, index) => (
             <tr
-              key={`${employee._id}-${index}`} 
-              className={`hover:bg-white/5 ${
-                index % 2 === 0 ? "bg-white/10" : "bg-white/20"
-              } transition duration-200`}
+              key={`${employee._id}-${index}`}
+              className={`hover:bg-white/5 ${index % 2 === 0 ? "bg-white/10" : "bg-white/20"
+                } transition duration-200`}
             >
               <td className="p-4">{employee._id}</td>
               <td className="p-4">
@@ -87,33 +86,32 @@ const EmployeeTable = ({
               <td className="p-4">{employee.mobile}</td>
               <td className="p-4">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    employee.role === "HR"
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${employee.role === "HR"
                       ? "bg-teal-500/90 text-white"
                       : employee.role === "Manager"
-                      ? "bg-purple-500/90 text-white"
-                      : "bg-yellow-500/90 text-white"
-                  }`}
+                        ? "bg-purple-500/90 text-white"
+                        : "bg-yellow-500/90 text-white"
+                    }`}
                 >
                   {employee.role}
                 </span>
               </td>
               <td className="p-4">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    employee.gender === "Male"
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${employee.gender === "Male"
                       ? "bg-blue-500/90 text-white"
                       : "bg-pink-500/90 text-white"
-                  }`}
+                    }`}
                 >
                   {employee.gender}
                 </span>
               </td>
               <td className="p-4">
-                {Array.isArray(employee.courses)
-                  ? employee.courses.join(", ")
-                  : "N/A"}
+                {Array.isArray(employee.courses) && employee.courses.length > 0
+                  ? employee.courses.join(", ") 
+                  : "N/A"} 
               </td>
+
               <td className="p-4">{employee.createDate}</td>
               <td className="p-4 flex justify-center gap-2">
                 <button

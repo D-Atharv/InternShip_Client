@@ -62,7 +62,10 @@ export default function CreateEmployeeForm() {
         formDataToSend.append("mobile", formData.mobile);
         formDataToSend.append("role", formData.role);
         formDataToSend.append("gender", formData.gender);
-        formDataToSend.append("courses", JSON.stringify(formData.courses));
+        if (formData.courses.length > 0) {
+            console.log("Submitting Courses:", formData.courses); // Debugging: Verify `courses` before submission
+            formDataToSend.append("courses", JSON.stringify(formData.courses));
+        }
         if (formData.image) {
             formDataToSend.append("image", formData.image);
         }
